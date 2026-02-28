@@ -1,0 +1,43 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: my-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  ingressClassName: nginx # Specify the Ingress class
+  rules:
+  - host: b2mwaffles.shop
+    http:
+      paths:
+      - path: /account
+        pathType: Prefix
+        backend:
+          service:
+            name: account-service
+            port:
+              number: 80
+      - path: /deposit
+        pathType: Prefix
+        backend:
+          service:
+            name: deposit-service
+            port:
+              number: 80
+  - host: a8de90566b3d04fa099a7580f6691da8-70243370.ap-south-1.elb.amazonaws.com
+    http:
+      paths:
+      - path: /account
+        pathType: Prefix
+        backend:
+          service:
+            name: account-service
+            port:
+              number: 80
+      - path: /deposit
+        pathType: Prefix
+        backend:
+          service:
+            name: deposit-service
+            port:
+              number: 80
